@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class PlayerCamera : MonoBehaviour
 {
-    public float xSensitivity;
-    public float ySensitivity;
+    public float lookSensitivity;
     public Transform orientation;
     public float xRotation;
     public float yRotation;
@@ -20,8 +19,8 @@ public class PlayerCamera : MonoBehaviour
     private void Update()
     {
         // Get mouse input
-        float mouseX = Input.GetAxisRaw("Mouse X") * Time.deltaTime * xSensitivity;
-        float mouseY = Input.GetAxisRaw("Mouse Y") * Time.deltaTime * ySensitivity;
+        float mouseX = Input.GetAxisRaw("Mouse X") * Time.deltaTime * lookSensitivity;
+        float mouseY = Input.GetAxisRaw("Mouse Y") * Time.deltaTime * lookSensitivity;
 
         yRotation += mouseX;
         xRotation -= mouseY;
@@ -34,7 +33,6 @@ public class PlayerCamera : MonoBehaviour
 
     public void changeMouseSensitivity(float sens)
     {
-        xSensitivity = sens;
-        ySensitivity = sens;
+        lookSensitivity = sens;
     }
 }

@@ -1,9 +1,14 @@
 using UnityEngine;
+using TMPro;
 
 public class GameController : MonoBehaviour
 {
     public static bool gameIsPaused = false;
+
+    [Header("Pause Menu")]
     public GameObject pauseMenu;
+    public TMP_InputField inputSens;
+    public PlayerCamera playerCamera;
 
     public void Update()
     {
@@ -18,6 +23,8 @@ public class GameController : MonoBehaviour
     {
         menu.SetActive(!menu.activeSelf);
         Cursor.visible = gameIsPaused;
+        inputSens.text = playerCamera.lookSensitivity.ToString("F1");
+        
     }
 
     public void PauseGame()
