@@ -1,14 +1,9 @@
 using UnityEngine;
-using TMPro;
 
 public class GameController : MonoBehaviour
 {
     public static bool gameIsPaused = false;
-
-    [Header("Pause Menu")]
     public GameObject pauseMenu;
-    public TMP_InputField inputSens;
-    public PlayerCamera playerCamera;
 
     public void Update()
     {
@@ -18,7 +13,7 @@ public class GameController : MonoBehaviour
             ToggleMenu(pauseMenu);
 
             if (pauseMenu.activeSelf)
-                InitializePauseMenu();
+                pauseMenu.GetComponent<PauseMenu>().InitializePauseMenu();
             else
                 Cursor.lockState = CursorLockMode.Locked;
         }
@@ -27,13 +22,6 @@ public class GameController : MonoBehaviour
     public void ToggleMenu(GameObject menu)
     {
         menu.SetActive(!menu.activeSelf);
-    }
-
-    private void InitializePauseMenu()
-    {
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
-        inputSens.text = playerCamera.lookSensitivity.ToString("F1");
     }
 
     private void TogglePause()
