@@ -29,4 +29,10 @@ public class PauseMenu : MonoBehaviour
         inputSens.text = playerCamera.GetMouseSensitivity().ToString("F1");
         slider.value = sens;
     }
+
+    public void OnSliderChange()
+    {
+        playerCamera.SetMouseSensitivity(slider.value);
+        inputSens.text = slider.value.ToString("F1");
+    }
 }
