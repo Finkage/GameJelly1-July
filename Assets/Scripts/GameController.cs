@@ -11,6 +11,7 @@ public class GameController : MonoBehaviour
     public void Start()
     {
         ResumeGame();
+        SetWinCondition(false);
     }
 
     public void Update()
