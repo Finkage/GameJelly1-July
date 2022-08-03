@@ -24,6 +24,9 @@ public class FlagManagement : MonoBehaviour
 
     private void Update()
     {
+        if (GameController.gameIsPaused)
+            return;
+
         // Cycle next flag color
         if (Input.GetKeyDown(KeyCode.E))
         {
