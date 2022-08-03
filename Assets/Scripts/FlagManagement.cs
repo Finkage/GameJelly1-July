@@ -8,38 +8,40 @@ public class FlagManagement : MonoBehaviour
     public Transform parent;
     public int maxFlags = 5;
 
+    private int currentFlagIndex;
     private Color currentFlagColor;
     private int totalFlags = 0;
-    private KeyCode[] numKeys = {
-        KeyCode.Alpha1,
-        KeyCode.Alpha2,
-        KeyCode.Alpha3,
-        KeyCode.Alpha4,
-        KeyCode.Alpha5,
-        KeyCode.Alpha6,
-        KeyCode.Alpha7,
-        KeyCode.Alpha8,
-        KeyCode.Alpha9,
-        KeyCode.Alpha0
-    };
 
     private void Start()
     {
         flags = new GameObject[maxFlags];
+        currentFlagIndex = 0;
         currentFlagColor = flagColors[0];
     }
 
     private void Update()
     {
-        for (int i = 0; i < flagColors.Length; i++)
+        // Cycle next flag color
+        if (Input.GetKeyDown(KeyCode.E))
         {
-            // Set the flag color
-            if (Input.GetKeyDown(numKeys[i]))
-                currentFlagColor = flagColors[i];
+            currentFlagIndex = currentFlagIndex >= flagColors.Length - 1 ? 0 : currentFlagIndex + 1;
+            currentFlagColor = flagColors[currentFlagIndex];
+        }
+
+        // Cycle previous flag color
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            currentFlagIndex = currentFlagIndex <= 0 ? flagColors.Length - 1 : currentFlagIndex - 1;
+            currentFlagColor = flagColors[currentFlagIndex];
         }
 
         if (Input.GetKeyDown(KeyCode.Space))
             DropFlag();
+    }
+
+    public Color GetFlagColor()
+    {
+        return currentFlagColor;
     }
 
     private void DropFlag()
