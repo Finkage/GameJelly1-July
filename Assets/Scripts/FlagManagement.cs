@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class FlagManagement : MonoBehaviour
 {
@@ -6,6 +7,7 @@ public class FlagManagement : MonoBehaviour
     public GameObject[] flags;
     public Color[] flagColors;
     public Transform parent;
+    public Image flagColorUI;
     public int maxFlags = 5;
 
     private int currentFlagIndex;
@@ -16,7 +18,8 @@ public class FlagManagement : MonoBehaviour
     {
         flags = new GameObject[maxFlags];
         currentFlagIndex = 0;
-        currentFlagColor = flagColors[0];
+        currentFlagColor = flagColors[currentFlagIndex];
+        flagColorUI.color = new Color(currentFlagColor.r, currentFlagColor.g, currentFlagColor.b, 1);
     }
 
     private void Update()
@@ -25,16 +28,17 @@ public class FlagManagement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E))
         {
             currentFlagIndex = currentFlagIndex >= flagColors.Length - 1 ? 0 : currentFlagIndex + 1;
-            currentFlagColor = flagColors[currentFlagIndex];
+            SetFlagColor(currentFlagIndex);
         }
 
         // Cycle previous flag color
         if (Input.GetKeyDown(KeyCode.Q))
         {
             currentFlagIndex = currentFlagIndex <= 0 ? flagColors.Length - 1 : currentFlagIndex - 1;
-            currentFlagColor = flagColors[currentFlagIndex];
+            SetFlagColor(currentFlagIndex);
         }
 
+        // Drop a flag at player location
         if (Input.GetKeyDown(KeyCode.Space))
             DropFlag();
     }
@@ -42,6 +46,12 @@ public class FlagManagement : MonoBehaviour
     public Color GetFlagColor()
     {
         return currentFlagColor;
+    }
+
+    public void SetFlagColor(int index)
+    {
+        currentFlagColor = flagColors[index];
+        flagColorUI.color = new Color(currentFlagColor.r, currentFlagColor.g, currentFlagColor.b, 1);
     }
 
     private void DropFlag()
