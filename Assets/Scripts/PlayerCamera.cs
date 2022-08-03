@@ -1,21 +1,23 @@
 // https://www.youtube.com/watch?v=f473C43s8nE
 
 using UnityEngine;
-using TMPro;
+using UnityEngine.UI;
 
 public class PlayerCamera : MonoBehaviour
 {
-    public float lookSensitivity;
     public Transform orientation;
     public float xRotation;
     public float yRotation;
-    public TMP_InputField inputSens;
+    public Slider mouseSensitivitySlider;
+
+    private float lookSensitivity;
 
     private void Start()
     {
         // Lock cursor to middle of screen and hide it
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        SetMouseSensitivity(mouseSensitivitySlider.value);
     }
 
     private void Update()
@@ -33,8 +35,13 @@ public class PlayerCamera : MonoBehaviour
         orientation.rotation = Quaternion.Euler(0, yRotation, 0);
     }
 
-    public void SetMouseSensitivity()
+    public float GetMouseSensitivity()
     {
-        lookSensitivity = float.Parse(inputSens.text);
+        return lookSensitivity;
+    }
+
+    public void SetMouseSensitivity(float newSens)
+    {
+        lookSensitivity = newSens;
     }
 }
