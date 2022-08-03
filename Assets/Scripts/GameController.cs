@@ -14,20 +14,29 @@ public class GameController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            PauseGame();
+            TogglePause();
             ToggleMenu(pauseMenu);
+
+            if (pauseMenu.activeSelf)
+                InitializePauseMenu();
+            else
+                Cursor.lockState = CursorLockMode.Locked;
         }
     }
 
     public void ToggleMenu(GameObject menu)
     {
         menu.SetActive(!menu.activeSelf);
-        Cursor.visible = gameIsPaused;
-        inputSens.text = playerCamera.lookSensitivity.ToString("F1");
-        
     }
 
-    public void PauseGame()
+    private void InitializePauseMenu()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        inputSens.text = playerCamera.lookSensitivity.ToString("F1");
+    }
+
+    private void TogglePause()
     {
         gameIsPaused = !gameIsPaused;
         Time.timeScale = gameIsPaused ? 0f : 1f;

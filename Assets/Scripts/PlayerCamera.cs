@@ -1,6 +1,7 @@
 // https://www.youtube.com/watch?v=f473C43s8nE
 
 using UnityEngine;
+using TMPro;
 
 public class PlayerCamera : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class PlayerCamera : MonoBehaviour
     public Transform orientation;
     public float xRotation;
     public float yRotation;
+    public TMP_InputField inputSens;
 
     private void Start()
     {
@@ -31,8 +33,8 @@ public class PlayerCamera : MonoBehaviour
         orientation.rotation = Quaternion.Euler(0, yRotation, 0);
     }
 
-    public void changeMouseSensitivity(float sens)
+    public void SetMouseSensitivity()
     {
-        lookSensitivity = sens;
+        lookSensitivity = float.Parse(inputSens.text);
     }
 }
