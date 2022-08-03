@@ -10,8 +10,6 @@ public class PauseMenu : MonoBehaviour
 
     public void InitializePauseMenu()
     {
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
         inputSens.text = playerCamera.GetMouseSensitivity().ToString("F1");
     }
 
