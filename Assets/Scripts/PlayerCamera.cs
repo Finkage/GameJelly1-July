@@ -10,21 +10,24 @@ public class PlayerCamera : MonoBehaviour
     public float yRotation;
     public Slider mouseSensitivitySlider;
 
-    private float lookSensitivity;
-
     private void Start()
     {
         // Lock cursor to middle of screen and hide it
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        SetMouseSensitivity(mouseSensitivitySlider.value);
+
+        // Only set to slider value if player has not altered the mouse sensitivity
+        if (SaveManager.Instance.mouseSensitivity <= 0)
+            SetMouseSensitivity(mouseSensitivitySlider.value);
+        else
+            SetMouseSensitivity(SaveManager.Instance.mouseSensitivity);
     }
 
     private void Update()
     {
         // Get mouse input
-        float mouseX = Input.GetAxisRaw("Mouse X") * Time.deltaTime * lookSensitivity;
-        float mouseY = Input.GetAxisRaw("Mouse Y") * Time.deltaTime * lookSensitivity;
+        float mouseX = Input.GetAxisRaw("Mouse X") * Time.deltaTime * SaveManager.Instance.mouseSensitivity;
+        float mouseY = Input.GetAxisRaw("Mouse Y") * Time.deltaTime * SaveManager.Instance.mouseSensitivity;
 
         yRotation += mouseX;
         xRotation -= mouseY;
@@ -37,11 +40,11 @@ public class PlayerCamera : MonoBehaviour
 
     public float GetMouseSensitivity()
     {
-        return lookSensitivity;
+        return SaveManager.Instance.mouseSensitivity;
     }
 
     public void SetMouseSensitivity(float newSens)
     {
-        lookSensitivity = newSens;
+        SaveManager.Instance.mouseSensitivity = newSens;
     }
 }
