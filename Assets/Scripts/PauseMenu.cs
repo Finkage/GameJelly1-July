@@ -4,14 +4,20 @@ using TMPro;
 
 public class PauseMenu : MonoBehaviour
 {
+    [Header("Mouse Settings")]
     public TMP_InputField inputSens;
-    public Slider slider;
+    public Slider mouseSlider;
     public PlayerCamera playerCamera;
+
+    [Header("Music Settings")]
+    public Slider musicSlider;
 
     private void Start()
     {
         if (SaveManager.Instance.mouseSensitivity > 0)
-            slider.value = SaveManager.Instance.mouseSensitivity;
+            mouseSlider.value = SaveManager.Instance.mouseSensitivity;
+
+        musicSlider.value = AudioManager.Instance.soundtrack.volume;
     }
 
     public void InitializePauseMenu()
@@ -23,20 +29,25 @@ public class PauseMenu : MonoBehaviour
     {
         float sens = float.Parse(inputSens.text);
 
-        if (sens > slider.maxValue)
-            playerCamera.SetMouseSensitivity(slider.maxValue);
-        else if (sens < slider.minValue)
-            playerCamera.SetMouseSensitivity(slider.minValue);
+        if (sens > mouseSlider.maxValue)
+            playerCamera.SetMouseSensitivity(mouseSlider.maxValue);
+        else if (sens < mouseSlider.minValue)
+            playerCamera.SetMouseSensitivity(mouseSlider.minValue);
         else
             playerCamera.SetMouseSensitivity(sens);
 
         inputSens.text = playerCamera.GetMouseSensitivity().ToString("F1");
-        slider.value = sens;
+        mouseSlider.value = sens;
     }
 
-    public void OnSliderChange()
+    public void OnMouseSliderChange()
     {
-        playerCamera.SetMouseSensitivity(slider.value);
-        inputSens.text = slider.value.ToString("F1");
+        playerCamera.SetMouseSensitivity(mouseSlider.value);
+        inputSens.text = mouseSlider.value.ToString("F1");
+    }
+
+    public void OnMusicSliderChange()
+    {
+        AudioManager.Instance.soundtrack.volume = musicSlider.value;
     }
 }
