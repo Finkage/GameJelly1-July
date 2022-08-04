@@ -8,8 +8,6 @@ public class AudioManager : MonoBehaviour
 
     public bool muteMusic = false;
     public bool muteSounds = false;
-    public float volMusic;
-    public float volSounds;
 
     private void Awake()
     {

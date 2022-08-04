@@ -11,6 +11,7 @@ public class PauseMenu : MonoBehaviour
 
     [Header("Music Settings")]
     public Slider musicSlider;
+    public Toggle musicToggle;
 
     private void Start()
     {
@@ -18,6 +19,7 @@ public class PauseMenu : MonoBehaviour
             mouseSlider.value = SaveManager.Instance.mouseSensitivity;
 
         musicSlider.value = AudioManager.Instance.soundtrack.volume;
+        musicToggle.isOn = AudioManager.Instance.soundtrack.mute;
     }
 
     public void InitializePauseMenu()
@@ -49,5 +51,10 @@ public class PauseMenu : MonoBehaviour
     public void OnMusicSliderChange()
     {
         AudioManager.Instance.soundtrack.volume = musicSlider.value;
+    }
+
+    public void OnMusicToggleChange()
+    {
+        AudioManager.Instance.soundtrack.mute = musicToggle.isOn;
     }
 }
