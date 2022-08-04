@@ -12,6 +12,11 @@ public class GameController : MonoBehaviour
     {
         ResumeGame();
         SetWinCondition(false);
+
+        if (!AudioManager.Instance.muteMusic)
+            AudioManager.Instance.PlayAudio(AudioManager.Instance.soundtrack);
+        else
+            AudioManager.Instance.PauseAudio(AudioManager.Instance.soundtrack);
     }
 
     public void Update()
