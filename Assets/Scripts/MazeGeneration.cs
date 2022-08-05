@@ -4,6 +4,7 @@ public class MazeGeneration : MonoBehaviour
 {
     public GameObject diePrefab;
     public GameObject barrierPrefab;
+    public GameObject cheesePrefab;
     public float dieSize = 4;   // Number of units die needs to move to be adjacent to neighboring dice
     public int mazeSize = 5;
     public int wallProbability = 80; // Probability that a grid square becomes a wall when randomizing maze
@@ -15,6 +16,8 @@ public class MazeGeneration : MonoBehaviour
     private float mazeOffset;     // Centers maze to table
     private int[,] maze;
     private (int, int)[] viablePath;
+    private (int, int) startingPosition;
+    private (int, int) goalPosition;
 
     private void Update()
     {
@@ -71,6 +74,9 @@ public class MazeGeneration : MonoBehaviour
             Instantiate(barrierPrefab, pos, barrierPrefab.transform.rotation, transform);
         }
 
+        // Spawn goal
+        SpawnCheese();
+
         transform.position = new Vector3(transform.position.x - mazeOffset, transform.position.y, transform.position.z + mazeOffset);
     }
 
@@ -113,6 +119,12 @@ public class MazeGeneration : MonoBehaviour
             maze[viablePath[i].Item1, viablePath[i].Item2] = 0;
         }
 
+        // Set starting position as first tuple in viablePath and goal as last tuple
+        startingPosition = viablePath[0];
+        goalPosition = viablePath[viablePath.Length - 1];
+        Debug.Log("starting: " + startingPosition);
+        Debug.Log("goal: " + goalPosition);
+
         // Set maze array
         for (int i = 0; i < viablePath.Length - 1; i++)
         {
@@ -133,5 +145,12 @@ public class MazeGeneration : MonoBehaviour
                 maze[row, col] = 0;
             }
         }
+    }
+
+    // Spawn cheese at goal position
+    private void SpawnCheese()
+    {
+        Vector3 pos = new Vector3(cheesePrefab.transform.position.x + (goalPosition.Item2 * dieSize), cheesePrefab.transform.position.y, cheesePrefab.transform.position.z - (goalPosition.Item1 * dieSize));
+        Instantiate(cheesePrefab, pos, cheesePrefab.transform.rotation, transform);
     }
 }
