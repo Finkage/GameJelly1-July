@@ -1,0 +1,68 @@
+using UnityEngine;
+
+public class MazeGeneration : MonoBehaviour
+{
+    public GameObject diePrefab;
+    public float dieSize = 4;   // Number of units die needs to move to be adjacent to neighboring dice
+    public int mazeSize = 5;
+    public int seed = 69;
+    public bool useSeed = false;
+    public bool fullGrid = false;
+
+    private float mazeOffset;     // Centers maze to table
+    private int[,] maze;
+
+    private void Start()
+    {
+        mazeOffset = dieSize * mazeSize / 2 - dieSize / 2;
+        maze = new int[mazeSize, mazeSize];
+        SetInitialGrid();
+        GenerateMaze();
+    }
+
+    private void Update()
+    {
+        // Generate new maze upon pressing X (for testing only)
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            ClearGrid();
+            SetInitialGrid();
+            GenerateMaze();
+        }
+    }
+
+    private void GenerateMaze()
+    {
+        for (int row = 0; row < mazeSize; row++)
+        {
+            for (int col = 0; col < mazeSize; col++)
+            {
+                if (maze[row, col] == 0)
+                    continue;
+
+                Vector3 pos = new Vector3(diePrefab.transform.position.x + col * dieSize, diePrefab.transform.position.y, diePrefab.transform.position.z - row * dieSize);
+                Instantiate(diePrefab, pos, diePrefab.transform.rotation, transform);
+            }
+        }
+
+        transform.position = new Vector3(transform.position.x - mazeOffset, transform.position.y, transform.position.z + mazeOffset);
+    }
+
+    private void SetInitialGrid()
+    {
+        if (useSeed)
+            Random.InitState(seed);
+
+        for (int row = 0; row < mazeSize; row++)
+        {
+            for (int col = 0; col < mazeSize; col++)
+                maze[row, col] = fullGrid ? 1 : Random.Range(0, 2);
+        }
+    }
+
+    private void ClearGrid()
+    {
+        foreach (Transform child in transform)
+            Destroy(child.gameObject);
+    }
+}
