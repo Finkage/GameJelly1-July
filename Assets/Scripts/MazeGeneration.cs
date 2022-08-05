@@ -5,6 +5,7 @@ public class MazeGeneration : MonoBehaviour
     public GameObject diePrefab;
     public float dieSize = 4;   // Number of units die needs to move to be adjacent to neighboring dice
     public int mazeSize = 5;
+    public int wallProbability = 80; // Probability that a grid square becomes a wall when randomizing maze
     public int seed = 69;
     public bool useSeed = false;
     public bool fullGrid = false;
@@ -25,9 +26,7 @@ public class MazeGeneration : MonoBehaviour
     {
         // Generate new maze upon pressing X (for testing only)
         if (Input.GetKeyDown(KeyCode.X))
-        {
             CreateNewMaze();
-        }
     }
 
     private void CreateNewMaze()
@@ -63,7 +62,12 @@ public class MazeGeneration : MonoBehaviour
         for (int row = 0; row < mazeSize; row++)
         {
             for (int col = 0; col < mazeSize; col++)
-                maze[row, col] = fullGrid ? 1 : Random.Range(0, 2);
+            {
+                if (fullGrid)
+                    maze[row, col] = 1;
+                else
+                    maze[row, col] = Random.Range(1, 101) < wallProbability ? 1 : 0;
+            }
         }
     }
 
@@ -75,6 +79,7 @@ public class MazeGeneration : MonoBehaviour
 
     private void GenerateViablePath()
     {
+        // Generate tuples for viable path
         for (int i = 0; i < viablePath.Length; i++)
         {
             // Item1 corresponds with row, Item2 corresponds with column
@@ -84,6 +89,7 @@ public class MazeGeneration : MonoBehaviour
             maze[viablePath[i].Item1, viablePath[i].Item2] = 0;
         }
 
+        // Set maze array
         for (int i = 0; i < viablePath.Length - 1; i++)
         {
             int row = viablePath[i].Item1;
