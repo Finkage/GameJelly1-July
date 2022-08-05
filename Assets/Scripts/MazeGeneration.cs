@@ -40,6 +40,7 @@ public class MazeGeneration : MonoBehaviour
 
     private void GenerateMaze()
     {
+        // Create maze
         for (int row = 0; row < mazeSize; row++)
         {
             for (int col = 0; col < mazeSize; col++)
@@ -50,6 +51,29 @@ public class MazeGeneration : MonoBehaviour
                 Vector3 pos = new Vector3(diePrefab.transform.position.x + col * dieSize, diePrefab.transform.position.y, diePrefab.transform.position.z - row * dieSize);
                 Instantiate(diePrefab, pos, diePrefab.transform.rotation, transform);
             }
+        }
+
+        // Create barrier along perimeter of maze
+        for (int col = 0; col < mazeSize + 2; col++)
+        {
+            // Instantiate top barrier
+            Vector3 pos = new Vector3(barrierPrefab.transform.position.x + col * dieSize - dieSize, barrierPrefab.transform.position.y, barrierPrefab.transform.position.z + dieSize);
+            Instantiate(barrierPrefab, pos, barrierPrefab.transform.rotation, transform);
+
+            // Instantiate bottom barrier
+            pos = new Vector3(barrierPrefab.transform.position.x + col * dieSize - dieSize, barrierPrefab.transform.position.y, barrierPrefab.transform.position.z - mazeSize * dieSize);
+            Instantiate(barrierPrefab, pos, barrierPrefab.transform.rotation, transform);
+        }
+
+        for (int row = 0; row < mazeSize; row++)
+        {
+            // Instantiate left barrier
+            Vector3 pos = new Vector3(barrierPrefab.transform.position.x - dieSize, barrierPrefab.transform.position.y, barrierPrefab.transform.position.z - row * dieSize);
+            Instantiate(barrierPrefab, pos, barrierPrefab.transform.rotation, transform);
+
+            // Instantiate right barrier
+            pos = new Vector3(barrierPrefab.transform.position.x + mazeSize * dieSize, barrierPrefab.transform.position.y, barrierPrefab.transform.position.z - row * dieSize);
+            Instantiate(barrierPrefab, pos, barrierPrefab.transform.rotation, transform);
         }
 
         transform.position = new Vector3(transform.position.x - mazeOffset, transform.position.y, transform.position.z + mazeOffset);
