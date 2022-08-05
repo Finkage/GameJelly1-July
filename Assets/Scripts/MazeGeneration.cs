@@ -16,13 +16,6 @@ public class MazeGeneration : MonoBehaviour
     private int[,] maze;
     private (int, int)[] viablePath;
 
-    private void Start()
-    {
-        mazeOffset = dieSize * mazeSize / 2 - dieSize / 2;
-        maze = new int[mazeSize, mazeSize];
-        viablePath = new (int, int)[numOfCheckpoints];
-    }
-
     private void Update()
     {
         // Generate new maze upon pressing X (for testing only)
@@ -40,6 +33,8 @@ public class MazeGeneration : MonoBehaviour
 
     private void GenerateMaze()
     {
+        mazeOffset = dieSize * mazeSize / 2 - dieSize / 2;
+
         // Create maze
         for (int row = 0; row < mazeSize; row++)
         {
@@ -81,6 +76,8 @@ public class MazeGeneration : MonoBehaviour
 
     private void SetInitialGrid()
     {
+        maze = new int[mazeSize, mazeSize];
+
         if (useSeed)
             Random.InitState(seed);
 
@@ -104,6 +101,8 @@ public class MazeGeneration : MonoBehaviour
 
     private void GenerateViablePath()
     {
+        viablePath = new (int, int)[numOfCheckpoints];
+
         // Generate tuples for viable path
         for (int i = 0; i < viablePath.Length; i++)
         {
