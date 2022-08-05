@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8459142872632025875}
   - component: {fileID: -212363013842755291}
   m_Layer: 0
-  m_Name: die_low
+  m_Name: die_white
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -62,8 +62,8 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: eb819b37f4ac34ed2b11334cac5e56de, type: 2}
   - {fileID: 2100000, guid: 0fc341f50a86f4dd8868dffd82010d0e, type: 2}
+  - {fileID: 2100000, guid: 3e38b23345a03412c8b53de47a06d2ed, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

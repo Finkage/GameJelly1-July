@@ -3,6 +3,7 @@ using UnityEngine;
 public class MazeGeneration : MonoBehaviour
 {
     public GameObject diePrefab;
+    public GameObject barrierPrefab;
     public float dieSize = 4;   // Number of units die needs to move to be adjacent to neighboring dice
     public int mazeSize = 5;
     public int wallProbability = 80; // Probability that a grid square becomes a wall when randomizing maze

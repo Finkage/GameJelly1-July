@@ -555,12 +555,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   diePrefab: {fileID: 7954506962332140230, guid: 072c550fb9d9249cdb967c4d2ed27258, type: 3}
+  barrierPrefab: {fileID: 7954506962332140230, guid: 6e3054eb8856c4d49abc9bc85a2fd986, type: 3}
   dieSize: 4
-  mazeSize: 20
+  mazeSize: 16
+  wallProbability: 80
   seed: 69
   useSeed: 0
   fullGrid: 1
-  numOfCheckpoints: 20
+  numOfCheckpoints: 5
 --- !u!1 &523057534
 GameObject:
   m_ObjectHideFlags: 0
