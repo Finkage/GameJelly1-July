@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8778007190951200222}
   - component: {fileID: 925404939682109697}
   m_Layer: 0
-  m_Name: die
+  m_Name: die_high
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
