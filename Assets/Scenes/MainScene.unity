@@ -557,8 +557,10 @@ MonoBehaviour:
   diePrefab: {fileID: 7954506962332140230, guid: 072c550fb9d9249cdb967c4d2ed27258, type: 3}
   barrierPrefab: {fileID: 7954506962332140230, guid: 6e3054eb8856c4d49abc9bc85a2fd986, type: 3}
   cheesePrefab: {fileID: 8523643056820105986, guid: 4068cce6fe1b14a888dda15eb1b6254d, type: 3}
+  startingFlagPrefab: {fileID: 5342972538370374197, guid: 04facebab2c6b4558887b440e024405a, type: 3}
+  player: {fileID: 777802294}
   dieSize: 4
-  mazeSize: 10
+  mazeSize: 20
   wallProbability: 80
   seed: 69
   useSeed: 0
@@ -1228,7 +1230,6 @@ MonoBehaviour:
   flag: {fileID: 5342972538370374197, guid: 04facebab2c6b4558887b440e024405a, type: 3}
   flags: []
   flagColors:
-  - {r: 0.8, g: 0.8, b: 0.8, a: 0}
   - {r: 0.7075472, g: 0, b: 0, a: 0}
   - {r: 0, g: 0.6886792, b: 0, a: 0}
   - {r: 0, g: 0.19664481, b: 0.735849, a: 0}
@@ -1311,6 +1312,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 119cd11474e45495b8c17cc7db3d247c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerPosition: {fileID: 777802296}
   cameraPosition: {fileID: 831880469}
 --- !u!1 &916019710
 GameObject:

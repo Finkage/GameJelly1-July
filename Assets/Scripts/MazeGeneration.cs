@@ -5,6 +5,8 @@ public class MazeGeneration : MonoBehaviour
     public GameObject diePrefab;
     public GameObject barrierPrefab;
     public GameObject cheesePrefab;
+    public GameObject startingFlagPrefab;
+    public GameObject player;
     public float dieSize = 4;   // Number of units die needs to move to be adjacent to neighboring dice
     public int mazeSize = 5;
     public int wallProbability = 80; // Probability that a grid square becomes a wall when randomizing maze
@@ -18,12 +20,20 @@ public class MazeGeneration : MonoBehaviour
     private (int, int)[] viablePath;
     private (int, int) startingPosition;
     private (int, int) goalPosition;
+    private GameObject startPosMarker;
+
+    private void Start()
+    {
+        CreateNewMaze();
+    }
 
     private void Update()
     {
         // Generate new maze upon pressing X (for testing only)
+        /*
         if (Input.GetKeyDown(KeyCode.X))
             CreateNewMaze();
+        */
     }
 
     private void CreateNewMaze()
@@ -47,7 +57,7 @@ public class MazeGeneration : MonoBehaviour
                     continue;
 
                 Vector3 pos = new Vector3(diePrefab.transform.position.x + col * dieSize, diePrefab.transform.position.y, diePrefab.transform.position.z - row * dieSize);
-                Instantiate(diePrefab, pos, diePrefab.transform.rotation, transform);
+                GameObject die = Instantiate(diePrefab, pos, diePrefab.transform.rotation, transform);
             }
         }
 
@@ -74,10 +84,17 @@ public class MazeGeneration : MonoBehaviour
             Instantiate(barrierPrefab, pos, barrierPrefab.transform.rotation, transform);
         }
 
+        // Spawn flag at starting position
+        SpawnStartingFlag();
+
         // Spawn goal
         SpawnCheese();
 
+        // Offset maze so it is centered on the table
         transform.position = new Vector3(transform.position.x - mazeOffset, transform.position.y, transform.position.z + mazeOffset);
+
+        // Move player to location of starting flag
+        player.transform.position = startPosMarker.transform.position;
     }
 
     private void SetInitialGrid()
@@ -119,11 +136,13 @@ public class MazeGeneration : MonoBehaviour
             maze[viablePath[i].Item1, viablePath[i].Item2] = 0;
         }
 
+        // If goal and starting positions are the same, keep rerolling until different
+        while (viablePath[0] == viablePath[viablePath.Length - 1])
+            viablePath[0] = (Random.Range(0, mazeSize), Random.Range(0, mazeSize));
+
         // Set starting position as first tuple in viablePath and goal as last tuple
         startingPosition = viablePath[0];
         goalPosition = viablePath[viablePath.Length - 1];
-        Debug.Log("starting: " + startingPosition);
-        Debug.Log("goal: " + goalPosition);
 
         // Set maze array
         for (int i = 0; i < viablePath.Length - 1; i++)
@@ -150,7 +169,14 @@ public class MazeGeneration : MonoBehaviour
     // Spawn cheese at goal position
     private void SpawnCheese()
     {
-        Vector3 pos = new Vector3(cheesePrefab.transform.position.x + (goalPosition.Item2 * dieSize), cheesePrefab.transform.position.y, cheesePrefab.transform.position.z - (goalPosition.Item1 * dieSize));
+        Vector3 pos = new Vector3(cheesePrefab.transform.position.x + goalPosition.Item2 * dieSize, cheesePrefab.transform.position.y, cheesePrefab.transform.position.z - goalPosition.Item1 * dieSize);
         Instantiate(cheesePrefab, pos, cheesePrefab.transform.rotation, transform);
+    }
+
+    // Spawn flag at start position
+    private void SpawnStartingFlag()
+    {
+        Vector3 pos = new Vector3(startingFlagPrefab.transform.position.x + startingPosition.Item2 * dieSize, startingFlagPrefab.transform.position.y, startingFlagPrefab.transform.position.z - startingPosition.Item1 * dieSize);
+        startPosMarker = Instantiate(startingFlagPrefab, pos, startingFlagPrefab.transform.rotation, transform);
     }
 }
