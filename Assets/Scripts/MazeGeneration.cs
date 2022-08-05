@@ -8,16 +8,19 @@ public class MazeGeneration : MonoBehaviour
     public int seed = 69;
     public bool useSeed = false;
     public bool fullGrid = false;
+    public int numOfCheckpoints = 5;    // Number of checkpoints a viable path must pass through
 
     private float mazeOffset;     // Centers maze to table
     private int[,] maze;
+    private (int, int)[] viablePath;
 
     private void Start()
     {
         mazeOffset = dieSize * mazeSize / 2 - dieSize / 2;
         maze = new int[mazeSize, mazeSize];
-        SetInitialGrid();
-        GenerateMaze();
+        viablePath = new (int, int)[numOfCheckpoints];
+        //SetInitialGrid();
+        //GenerateMaze();
     }
 
     private void Update()
@@ -27,6 +30,7 @@ public class MazeGeneration : MonoBehaviour
         {
             ClearGrid();
             SetInitialGrid();
+            GenerateViablePath();
             GenerateMaze();
         }
     }
@@ -64,5 +68,17 @@ public class MazeGeneration : MonoBehaviour
     {
         foreach (Transform child in transform)
             Destroy(child.gameObject);
+    }
+
+    private void GenerateViablePath()
+    {
+        for (int i = 0; i < viablePath.Length; i++)
+        {
+            // Item1 corresponds with row, Item2 corresponds with column
+            viablePath[i] = (Random.Range(0, mazeSize), Random.Range(0, mazeSize));
+
+            // Checkpoints should be a path
+            maze[viablePath[i].Item1, viablePath[i].Item2] = 0;
+        }
     }
 }
