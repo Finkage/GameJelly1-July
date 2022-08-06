@@ -57,7 +57,8 @@ public class MazeGeneration : MonoBehaviour
                     continue;
 
                 Vector3 pos = new Vector3(diePrefab.transform.position.x + col * dieSize, diePrefab.transform.position.y, diePrefab.transform.position.z - row * dieSize);
-                GameObject die = Instantiate(diePrefab, pos, diePrefab.transform.rotation, transform);
+                Quaternion rot = Quaternion.Euler(diePrefab.transform.rotation.x + RandomRotation(), 0, diePrefab.transform.rotation.z + RandomRotation());
+                Instantiate(diePrefab, pos, rot, transform);
             }
         }
 
@@ -66,22 +67,28 @@ public class MazeGeneration : MonoBehaviour
         {
             // Instantiate top barrier
             Vector3 pos = new Vector3(barrierPrefab.transform.position.x + col * dieSize - dieSize, barrierPrefab.transform.position.y, barrierPrefab.transform.position.z + dieSize);
-            Instantiate(barrierPrefab, pos, barrierPrefab.transform.rotation, transform);
+            Quaternion rot = Quaternion.Euler(barrierPrefab.transform.rotation.x + RandomRotation(), 0, barrierPrefab.transform.rotation.z + RandomRotation());
+            Instantiate(barrierPrefab, pos, rot, transform);
+
+            rot = Quaternion.Euler(barrierPrefab.transform.rotation.x + RandomRotation(), 0, barrierPrefab.transform.rotation.z + RandomRotation());
 
             // Instantiate bottom barrier
             pos = new Vector3(barrierPrefab.transform.position.x + col * dieSize - dieSize, barrierPrefab.transform.position.y, barrierPrefab.transform.position.z - mazeSize * dieSize);
-            Instantiate(barrierPrefab, pos, barrierPrefab.transform.rotation, transform);
+            Instantiate(barrierPrefab, pos, rot, transform);
         }
 
         for (int row = 0; row < mazeSize; row++)
         {
             // Instantiate left barrier
             Vector3 pos = new Vector3(barrierPrefab.transform.position.x - dieSize, barrierPrefab.transform.position.y, barrierPrefab.transform.position.z - row * dieSize);
-            Instantiate(barrierPrefab, pos, barrierPrefab.transform.rotation, transform);
+            Quaternion rot = Quaternion.Euler(barrierPrefab.transform.rotation.x + RandomRotation(), 0, barrierPrefab.transform.rotation.z + RandomRotation());
+            Instantiate(barrierPrefab, pos, rot, transform);
+
+            rot = Quaternion.Euler(barrierPrefab.transform.rotation.x + RandomRotation(), 0, barrierPrefab.transform.rotation.z + RandomRotation());
 
             // Instantiate right barrier
             pos = new Vector3(barrierPrefab.transform.position.x + mazeSize * dieSize, barrierPrefab.transform.position.y, barrierPrefab.transform.position.z - row * dieSize);
-            Instantiate(barrierPrefab, pos, barrierPrefab.transform.rotation, transform);
+            Instantiate(barrierPrefab, pos, rot, transform);
         }
 
         // Spawn flag at starting position
@@ -178,5 +185,10 @@ public class MazeGeneration : MonoBehaviour
     {
         Vector3 pos = new Vector3(startingFlagPrefab.transform.position.x + startingPosition.Item2 * dieSize, startingFlagPrefab.transform.position.y, startingFlagPrefab.transform.position.z - startingPosition.Item1 * dieSize);
         startPosMarker = Instantiate(startingFlagPrefab, pos, startingFlagPrefab.transform.rotation, transform);
+    }
+
+    private int RandomRotation()
+    {
+        return 90 * Random.Range(-1, 3);
     }
 }
