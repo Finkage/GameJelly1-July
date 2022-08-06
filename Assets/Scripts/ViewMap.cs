@@ -5,8 +5,6 @@ public class ViewMap : MonoBehaviour
     public GameObject mainCamera;
     public GameObject mapCamera;
 
-    public bool mapIsUp = false;
-
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Tab))

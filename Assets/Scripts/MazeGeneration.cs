@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class MazeGeneration : MonoBehaviour
 {
+    public GameController gameController;
     public GameObject diePrefab;
     public GameObject barrierPrefab;
     public GameObject cheesePrefab;
@@ -30,7 +31,7 @@ public class MazeGeneration : MonoBehaviour
     private void Update()
     {
         // Generate new maze upon pressing X (for testing only)
-        if (GameController.devMode && Input.GetKeyDown(KeyCode.X))
+        if (gameController.devMode && Input.GetKeyDown(KeyCode.X))
             CreateNewMaze();
     }
 

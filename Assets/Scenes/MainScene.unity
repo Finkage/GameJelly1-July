@@ -554,6 +554,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dff9b642209f04564979d67723111a4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameController: {fileID: 2038663876}
   diePrefab: {fileID: 7954506962332140230, guid: 072c550fb9d9249cdb967c4d2ed27258, type: 3}
   barrierPrefab: {fileID: 7954506962332140230, guid: 6e3054eb8856c4d49abc9bc85a2fd986, type: 3}
   cheesePrefab: {fileID: 8523643056820105986, guid: 4068cce6fe1b14a888dda15eb1b6254d, type: 3}
@@ -3985,6 +3986,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89a8a73d176cd41c9a388eaea0b87c53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  devMode: 0
   pauseMenu: {fileID: 213324101}
 --- !u!4 &2038663877
 Transform:

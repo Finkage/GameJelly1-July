@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
-    public static bool devMode = false;
+    public bool devMode = false;
     public static bool gameIsPaused = false;
     public GameObject pauseMenu;
 
