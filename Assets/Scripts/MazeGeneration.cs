@@ -39,7 +39,7 @@ public class MazeGeneration : MonoBehaviour
     {
         ClearGrid();
         SetInitialGrid();
-        GenerateViablePath();
+        GeneratePaths();
         GenerateMaze();
     }
 
@@ -128,7 +128,7 @@ public class MazeGeneration : MonoBehaviour
             Destroy(child.gameObject);
     }
 
-    private void GenerateViablePath()
+    private void GeneratePaths()
     {
         viablePath = new (int, int)[numOfCheckpoints];
 
