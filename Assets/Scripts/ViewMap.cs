@@ -2,8 +2,6 @@ using UnityEngine;
 
 public class ViewMap : MonoBehaviour
 {
-    public static ViewMap Instance;
-
     public GameObject mainCamera;
     public GameObject mapCamera;
 

@@ -30,10 +30,8 @@ public class MazeGeneration : MonoBehaviour
     private void Update()
     {
         // Generate new maze upon pressing X (for testing only)
-        /*
-        if (Input.GetKeyDown(KeyCode.X))
+        if (GameController.devMode && Input.GetKeyDown(KeyCode.X))
             CreateNewMaze();
-        */
     }
 
     private void CreateNewMaze()
