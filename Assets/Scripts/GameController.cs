@@ -54,6 +54,7 @@ public class GameController : MonoBehaviour
         mainMenu.SetActive(false);
         posedMainMenu.SetActive(false);
         flagIndicator.SetActive(true);
+        pauseMenu.GetComponent<PauseMenu>().InitializePauseMenu();
     }
 
     public void DisplayPauseMenu()
