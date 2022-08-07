@@ -142,7 +142,7 @@ public class MazeGeneration : MonoBehaviour
             viablePath[i] = (Random.Range(0, mazeSize), Random.Range(0, mazeSize));
 
             // Checkpoints should be a path
-            maze[viablePath[i].Item1, viablePath[i].Item2] = 0;
+            SetPathInMaze(viablePath[i].Item1, viablePath[i].Item2);
         }
 
         // If goal and starting positions are the same, keep rerolling until different
@@ -152,13 +152,6 @@ public class MazeGeneration : MonoBehaviour
         // Set starting position as first tuple in viablePath and goal as last tuple
         startingPosition = viablePath[0];
         goalPosition = viablePath[viablePath.Length - 1];
-
-        // Generate stray paths
-        for (int i = 0; i < strayPaths.Length; i++)
-        {
-            strayPaths[i] = (Random.Range(0, mazeSize), Random.Range(0, mazeSize));
-            maze[strayPaths[i].Item1, strayPaths[i].Item2] = 0;
-        }
 
         // Set maze array
         for (int i = 0; i < viablePath.Length - 1; i++)
@@ -174,28 +167,21 @@ public class MazeGeneration : MonoBehaviour
         // Set maze array for stray paths
         for (int i = 0; i < strayPaths.Length; i++)
         {
-            int row = strayPaths[i].Item1;
-            int col = strayPaths[i].Item2;
+            (int, int) randomViablePath = viablePath[Random.Range(0, viablePath.Length)];
+            (int, int) strayPath = (Random.Range(0, mazeSize), Random.Range(0, mazeSize));
+            (int, int) randomPath = (Random.Range(0, mazeSize), Random.Range(0, mazeSize));
 
-            (int, int) randomPath = viablePath[Random.Range(0, viablePath.Length)];
+            SetPathInMaze(strayPath.Item1, strayPath.Item2);
 
+            int row = strayPath.Item1;
+            int col = strayPath.Item2;
             int targetRow = randomPath.Item1;
             int targetCol = randomPath.Item2;
 
             CreatePath(row, col, targetRow, targetCol);
-
-        }
-
-        // Set stray paths for stray paths
-        for (int i = 0; i < strayPaths.Length; i++)
-        {
-            int row = strayPaths[i].Item1;
-            int col = strayPaths[i].Item2;
-
-            int targetRow = Random.Range(0, mazeSize);
-            int targetCol = Random.Range(0, mazeSize);
-
-            CreatePath(row, col, targetRow, targetCol);
+            CreatePath(row, col, randomViablePath.Item1, randomViablePath.Item1);
+            CreatePath(targetRow, targetCol, Random.Range(0, mazeSize), Random.Range(0, mazeSize));
+            CreatePath(randomViablePath.Item1, randomViablePath.Item2, Random.Range(0, mazeSize), Random.Range(0, mazeSize));
         }
     }
 
@@ -204,14 +190,19 @@ public class MazeGeneration : MonoBehaviour
         while (row != targetRow)
         {
             row = row < targetRow ? row + 1 : row - 1;
-            maze[row, col] = 0;
+            SetPathInMaze(row, col);
         }
 
         while (col != targetCol)
         {
             col = col < targetCol ? col + 1 : col - 1;
-            maze[row, col] = 0;
+            SetPathInMaze(row, col);
         }
+    }
+
+    private void SetPathInMaze(int row, int col)
+    {
+        maze[row, col] = 0;
     }
 
     // Spawn cheese at goal position
