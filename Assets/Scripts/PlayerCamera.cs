@@ -17,11 +17,7 @@ public class PlayerCamera : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
-        // Only set to slider value if player has not altered the mouse sensitivity
-        if (SaveManager.Instance.mouseSensitivity <= 0)
-            SetMouseSensitivity(mouseSensitivitySlider.value);
-        else
-            SetMouseSensitivity(SaveManager.Instance.mouseSensitivity);
+        SetMouseSensitivity(SaveManager.Instance.mouseSensitivity);
     }
 
     private void Update()

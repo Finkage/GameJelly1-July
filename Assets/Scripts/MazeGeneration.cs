@@ -25,11 +25,6 @@ public class MazeGeneration : MonoBehaviour
     private (int, int) goalPosition;
     private GameObject startPosMarker;
 
-    private void Start()
-    {
-        CreateNewMaze();
-    }
-
     private void Update()
     {
         // Generate new maze upon pressing X (for testing only)
@@ -37,7 +32,7 @@ public class MazeGeneration : MonoBehaviour
             CreateNewMaze();
     }
 
-    private void CreateNewMaze()
+    public void CreateNewMaze()
     {
         ClearGrid();
         SetInitialGrid();

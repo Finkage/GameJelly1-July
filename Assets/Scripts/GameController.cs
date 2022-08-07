@@ -6,13 +6,20 @@ public class GameController : MonoBehaviour
     public bool devMode = false;
     public static bool gameIsPaused = false;
     public GameObject pauseMenu;
+    public GameObject restartButton;
+    public GameObject mainMenu;
+    public GameObject posedMainMenu;
+    public GameObject flagIndicator;
+    public MazeGeneration mazeGeneration;
+    public GameObject mainMenuCamera;
+    public GameObject playerCamera;
 
     private static bool gameIsWon = false;
 
     public void Start()
     {
-        ResumeGame();
-        SetWinCondition(false);
+        PauseGame();
+        SetWinCondition(true);
 
         if (!AudioManager.Instance.muteMusic)
             AudioManager.Instance.PlayAudio(AudioManager.Instance.soundtrack);
@@ -30,23 +37,40 @@ public class GameController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            ToggleMenu(pauseMenu);
-
             if (pauseMenu.activeSelf)
-            {
-                PauseGame();
-                pauseMenu.GetComponent<PauseMenu>().InitializePauseMenu();
-            }
+                HidePauseMenu();
             else
-            {
-                ResumeGame();
-            }
+                DisplayPauseMenu();
         }
     }
 
-    public void ToggleMenu(GameObject menu)
+    public void StartGame()
     {
-        menu.SetActive(!menu.activeSelf);
+        ResumeGame();
+        SetWinCondition(false);
+        mazeGeneration.CreateNewMaze();
+        mainMenuCamera.SetActive(false);
+        playerCamera.SetActive(true);
+        mainMenu.SetActive(false);
+        posedMainMenu.SetActive(false);
+        flagIndicator.SetActive(true);
+    }
+
+    public void DisplayPauseMenu()
+    {
+        PauseGame();
+        pauseMenu.SetActive(true);
+        pauseMenu.GetComponent<PauseMenu>().InitializePauseMenu();
+
+        restartButton.SetActive(!gameIsWon);
+    }
+
+    public void HidePauseMenu()
+    {
+        pauseMenu.SetActive(false);
+
+        if (!gameIsWon)
+            ResumeGame();
     }
 
     private void PauseGame()
