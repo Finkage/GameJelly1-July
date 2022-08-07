@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class PlayerCamera : MonoBehaviour
 {
+    public Transform playerTransform;
     public Transform orientation;
     public float xRotation;
     public float yRotation;
@@ -36,6 +37,9 @@ public class PlayerCamera : MonoBehaviour
         // Rotate camera and orientation
         transform.rotation = Quaternion.Euler(xRotation, yRotation, 0);
         orientation.rotation = Quaternion.Euler(0, yRotation, 0);
+
+        // Rotate player game object
+        playerTransform.rotation = Quaternion.Euler(0, yRotation, 0);
     }
 
     public float GetMouseSensitivity()
