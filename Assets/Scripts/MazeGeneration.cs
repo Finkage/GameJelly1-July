@@ -15,10 +15,12 @@ public class MazeGeneration : MonoBehaviour
     public bool useSeed = false;
     public bool fullGrid = false;
     public int numOfCheckpoints = 5;    // Number of checkpoints a viable path must pass through
+    public int numOfStrays = 5;   // Number of checkpoints that lead player to stray off main path
 
     private float mazeOffset;     // Centers maze to table
     private int[,] maze;
     private (int, int)[] viablePath;
+    private (int, int)[] strayPaths;
     private (int, int) startingPosition;
     private (int, int) goalPosition;
     private GameObject startPosMarker;
@@ -131,6 +133,7 @@ public class MazeGeneration : MonoBehaviour
     private void GeneratePaths()
     {
         viablePath = new (int, int)[numOfCheckpoints];
+        strayPaths = new (int, int)[numOfStrays];
 
         // Generate tuples for viable path
         for (int i = 0; i < viablePath.Length; i++)
@@ -150,25 +153,64 @@ public class MazeGeneration : MonoBehaviour
         startingPosition = viablePath[0];
         goalPosition = viablePath[viablePath.Length - 1];
 
+        // Generate stray paths
+        for (int i = 0; i < strayPaths.Length; i++)
+        {
+            strayPaths[i] = (Random.Range(0, mazeSize), Random.Range(0, mazeSize));
+            maze[strayPaths[i].Item1, strayPaths[i].Item2] = 0;
+        }
+
         // Set maze array
         for (int i = 0; i < viablePath.Length - 1; i++)
         {
             int row = viablePath[i].Item1;
-            int targetRow = viablePath[i + 1].Item1;
             int col = viablePath[i].Item2;
+            int targetRow = viablePath[i + 1].Item1;
             int targetCol = viablePath[i + 1].Item2;
 
-            while (row != targetRow)
-            {
-                row = row < targetRow ? row + 1 : row - 1;
-                maze[row, col] = 0;
-            }
+            CreatePath(row, col, targetRow, targetCol);
+        }
 
-            while (col != targetCol)
-            {
-                col = col < targetCol ? col + 1 : col - 1;
-                maze[row, col] = 0;
-            }
+        // Set maze array for stray paths
+        for (int i = 0; i < strayPaths.Length; i++)
+        {
+            int row = strayPaths[i].Item1;
+            int col = strayPaths[i].Item2;
+
+            (int, int) randomPath = viablePath[Random.Range(0, viablePath.Length)];
+
+            int targetRow = randomPath.Item1;
+            int targetCol = randomPath.Item2;
+
+            CreatePath(row, col, targetRow, targetCol);
+
+        }
+
+        // Set stray paths for stray paths
+        for (int i = 0; i < strayPaths.Length; i++)
+        {
+            int row = strayPaths[i].Item1;
+            int col = strayPaths[i].Item2;
+
+            int targetRow = Random.Range(0, mazeSize);
+            int targetCol = Random.Range(0, mazeSize);
+
+            CreatePath(row, col, targetRow, targetCol);
+        }
+    }
+
+    private void CreatePath(int row, int col, int targetRow, int targetCol)
+    {
+        while (row != targetRow)
+        {
+            row = row < targetRow ? row + 1 : row - 1;
+            maze[row, col] = 0;
+        }
+
+        while (col != targetCol)
+        {
+            col = col < targetCol ? col + 1 : col - 1;
+            maze[row, col] = 0;
         }
     }
 
