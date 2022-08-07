@@ -35,7 +35,7 @@ public class GameController : MonoBehaviour
             return;
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.P))
         {
             if (pauseMenu.activeSelf)
                 HidePauseMenu();
@@ -78,7 +78,7 @@ public class GameController : MonoBehaviour
     {
         gameIsPaused = true;
         Time.timeScale = 0f;
-        Cursor.lockState = CursorLockMode.None;
+        Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = true;
     }
 
