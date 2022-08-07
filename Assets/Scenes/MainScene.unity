@@ -566,8 +566,8 @@ MonoBehaviour:
   seed: 69
   useSeed: 0
   fullGrid: 1
-  numOfCheckpoints: 16
-  numOfStrays: 20
+  numOfCheckpoints: 8
+  numOfStrays: 8
 --- !u!1 &523057534
 GameObject:
   m_ObjectHideFlags: 0
