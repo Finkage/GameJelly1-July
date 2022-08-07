@@ -35,7 +35,7 @@ public class GameController : MonoBehaviour
             return;
         }
 
-        if (Input.GetKeyDown(KeyCode.P))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (pauseMenu.activeSelf)
                 HidePauseMenu();
