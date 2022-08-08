@@ -30,4 +30,4 @@ Algernon the mouse has been captured by a casino dealer who has trapped him in a
 * Max Ammendolea
 
 **Additional Assets**
-Innovana Games - [Table texture](https://assetstore.unity.com/packages/2d/textures-materials/wood/hand-painted-seamless-wood-texture-vol-6-162145)
+* Innovana Games - [Table texture](https://assetstore.unity.com/packages/2d/textures-materials/wood/hand-painted-seamless-wood-texture-vol-6-162145)
