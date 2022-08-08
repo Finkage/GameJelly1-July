@@ -14,7 +14,7 @@ Algernon the mouse has been captured by a casino dealer who has trapped him in a
 * P - pause and unpause game
 
 ## Acknowledgement
-**Developers**
+**Coding**
 * Alinda Heng
 
 **Art**
