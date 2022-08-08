@@ -7,6 +7,7 @@ public class GameController : MonoBehaviour
     public static bool gameIsPaused = false;
     public GameObject pauseMenu;
     public GameObject restartButton;
+    public GameObject continueButton;
     public GameObject mainMenu;
     public GameObject posedMainMenu;
     public GameObject flagIndicator;
@@ -64,6 +65,7 @@ public class GameController : MonoBehaviour
         pauseMenu.GetComponent<PauseMenu>().InitializePauseMenu();
 
         restartButton.SetActive(!gameIsWon);
+        continueButton.SetActive(gameIsWon);
     }
 
     public void HidePauseMenu()

@@ -2039,7 +2039,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aef51813648324b95ba4b76787c4fe7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 3.5
+  moveSpeed: 4.5
   orientation: {fileID: 1908538980}
 --- !u!114 &777802298
 MonoBehaviour:
@@ -2539,7 +2539,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0.19983996, y: 1}
+  m_AnchorMax: {x: 0.24962482, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -3385,8 +3385,8 @@ RectTransform:
   m_Father: {fileID: 1825189636}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.19983996, y: 0}
-  m_AnchorMax: {x: 0.19983996, y: 1}
+  m_AnchorMin: {x: 0.24962482, y: 0}
+  m_AnchorMax: {x: 0.24962482, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -5532,6 +5532,7 @@ MonoBehaviour:
   devMode: 0
   pauseMenu: {fileID: 213324101}
   restartButton: {fileID: 377605779}
+  continueButton: {fileID: 1864702202}
   mainMenu: {fileID: 1677885672}
   posedMainMenu: {fileID: 445915222}
   flagIndicator: {fileID: 478204582}
@@ -6066,7 +6067,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 832569959052129392, guid: ed7d6ae835c4341bea604576e3710b51, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -192
+      value: -5
       objectReference: {fileID: 0}
     - target: {fileID: 832569959052129392, guid: ed7d6ae835c4341bea604576e3710b51, type: 3}
       propertyPath: m_AnchoredPosition.y
